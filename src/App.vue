@@ -1,23 +1,30 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <div class="fractions">
+      <div class="fractions__list">
+        <Fraction
+                v-for="(fraction, index) in fractions"
+                :key="index"
+                :numerator=fraction.numerator
+                :denominator=fraction.denominator
+                :id="fraction.id"
+                :indx="index"
+                @changeFractionInput=changeFractionInput
+                v-bind:onClick="deleteFraction"
+        />
+      </div>
 
-    <div class="fraction-list">
-      <Fraction
-              v-for="(fraction, index) in fractions"
-              :key="index"
-              :numerator=fraction.numerator
-              :denominator=fraction.denominator
-              :id="fraction.id"
-              :indx="index"
-              @changeFractionInput=changeFractionInput
-              v-bind:onClick="deleteFraction"
-      />
+      <div class="fractions__sum">
+        <div class="fractions__sum-equal">=</div>
+        <div class="fractions__sum-fraction">
+          <div class="fractions__sum-denominator">{{takeSum.numerator}}</div>
+          <div class="fractions__sum-separator"/>
+          <div class="fractions__sum-numerator">{{takeSum.denominator}}</div>
+        </div>
+      </div>
     </div>
 
-    <div>sum: {{takeSum}}</div>
-
-  <button :disabled="fractions.length > 5" @click="addFraction">add new fraction</button>
+    <button :disabled="fractions.length > 5" @click="addFraction">add new fraction</button>
   </div>
 
 </template>
@@ -34,11 +41,9 @@ export default {
     ...mapState([
       'fractions',
     ]),
-
     ...mapGetters([
       'takeSum',
     ]),
-
   },
   components: {
     Fraction,
@@ -49,7 +54,6 @@ export default {
       'addFraction',
       'deleteFraction',
     ]),
-
     changeFractionInput(value) {
       store.commit('changeInput', value);
     },
@@ -57,20 +61,43 @@ export default {
 };
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  max-width: 1024px;
-  margin: 0 auto;
-  margin-top: 60px;
-}
-
-  .fraction-list{
-    display: flex;
-    justify-content: space-between;
+<style lang="scss">
+  *{
+    box-sizing: border-box;
   }
+
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    max-width: 1024px;
+    margin: 0 auto;
+    margin-top: 60px;
+  }
+
+  .fractions {
+    display: flex;
+    &__list {
+      display: flex;
+    }
+
+    &__sum {
+      display: flex;
+      align-items: center;
+      margin-left: 5px;
+    }
+
+    &__sum-equal {
+      margin: 0 25px;
+    }
+
+    &__sum-separator {
+      height: 2px;
+      background: #000;
+      margin: 6px 0;
+    }
+  }
+
 </style>
