@@ -8,7 +8,7 @@
                     name="numerator"
                     type="number"
                     v-model.number="fraction.numerator"
-            >
+            />
         </div>
 
           <div class="fraction__separator"/>
@@ -19,7 +19,7 @@
                       name="denominator"
                       type="number"
                       v-model.number="fraction.denominator"
-              >
+              />
         </div>
       </div>
       <button v-if="indx>=2" @click='onClick(id)'>delete</button>
