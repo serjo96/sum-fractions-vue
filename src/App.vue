@@ -24,7 +24,7 @@
       </div>
     </div>
 
-    <button :disabled="fractions.length > 5" @click="addFraction">add new fraction</button>
+    <button class="add-fraction-button" :disabled="fractions.length > 5" @click="addFraction">add new fraction</button>
   </div>
 
 </template>
@@ -32,7 +32,6 @@
 <script>
 import { mapActions, mapState, mapGetters } from 'vuex';
 import Fraction from './components/Fraction';
-import store from './store/index';
 
 
 export default {
@@ -55,7 +54,7 @@ export default {
       'deleteFraction',
     ]),
     changeFractionInput(value) {
-      store.commit('changeInput', value);
+      this.changeInput(value);
     },
   },
 };
@@ -98,6 +97,11 @@ export default {
       background: #000;
       margin: 6px 0;
     }
+  }
+  
+  .add-fraction-button{
+    float: left;
+    margin-top: 25px;
   }
 
 </style>
