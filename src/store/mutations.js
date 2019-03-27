@@ -1,10 +1,11 @@
-import {ADD_FRACTION, CHANGE_INPUT, DELETE_FRACTION} from './constants';
+import { ADD_FRACTION, CHANGE_INPUT, DELETE_FRACTION } from './constants';
 
 const mutations = {
   [CHANGE_INPUT](state, payload) {
     state.fractions.forEach((el) => {
-      if (el.id === payload.id) {
-        el[payload.key] = payload[payload.key];
+      const item = el;
+      if (item.id === payload.id) {
+        item[payload.key] = payload[payload.key];
       }
     });
   },

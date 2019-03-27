@@ -10,7 +10,7 @@
                 :id="fraction.id"
                 :indx="index"
                 @changeFractionInput=changeFractionInput
-                v-bind:onClick="deleteFraction"
+                v-bind:onClick="DELETE_FRACTION"
         />
       </div>
 
@@ -18,20 +18,27 @@
         <div class="fractions__sum-equal">=</div>
         <div class="fractions__sum-fraction">
           <div class="fractions__sum-denominator">{{takeSum.numerator}}</div>
-          <div class="fractions__sum-separator"/>
+          <div class="fractions__sum-separator"></div>
           <div class="fractions__sum-numerator">{{takeSum.denominator}}</div>
         </div>
       </div>
     </div>
 
-    <button class="add-fraction-button" :disabled="fractions.length > 5" @click="addFraction">add new fraction</button>
+    <button
+            class="add-fraction-button"
+            :disabled="fractions.length > 5"
+            @click="ADD_FRACTION"
+    >
+      add new fraction
+    </button>
   </div>
 
 </template>
 
 <script>
-import { mapActions, mapState, mapGetters } from 'vuex';
+import { mapMutations, mapState, mapGetters } from 'vuex';
 import Fraction from './components/Fraction';
+import { ADD_FRACTION, CHANGE_INPUT, DELETE_FRACTION } from './store/constants';
 
 
 export default {
@@ -48,13 +55,13 @@ export default {
     Fraction,
   },
   methods: {
-    ...mapActions([
-      'changeInput',
-      'addFraction',
-      'deleteFraction',
+    ...mapMutations([
+      CHANGE_INPUT,
+      ADD_FRACTION,
+      DELETE_FRACTION,
     ]),
     changeFractionInput(value) {
-      this.changeInput(value);
+      this.CHANGE_INPUT(value);
     },
   },
 };
@@ -98,7 +105,7 @@ export default {
       margin: 6px 0;
     }
   }
-  
+
   .add-fraction-button{
     float: left;
     margin-top: 25px;
